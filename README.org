@@ -1,0 +1,11 @@
+#+STARTUP: showall hidestarts
+* Computación Distribuida
+** Semestre *2022-1* (Septiembre 2021 - Enero 2022)
+*** Grupo 7071   
+    /Profesor/ MCIC Miguel Angel Piña Avelino
+    /Ayudante/ Diego Estrada Mejia
+    /Ayudante/ Daniela Susana Vega Monroy
+    /A lab./   Luis Fernando Yang Fong Baeza
+    /A lab./   Pablo Gerardo González López
+** [[https://web.fciencias.unam.mx/docencia/horarios/presentacion/327575][Presentación]]
+   
