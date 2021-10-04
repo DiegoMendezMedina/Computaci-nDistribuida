@@ -6,12 +6,13 @@
 \usepackage{hyperref}
 \usepackage{svg}
 \usepackage{csquotes}
-\usepackage{multicol}
+\usepackage{graphicx}
 
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{listings}
+
+\usepackage{import}
 
 \title{%
   Tarea 1\\
@@ -28,10 +29,10 @@
   $K_n$. El sistema es síncrono pero la comunicación \textit{no es confiable};
   sea $P$ el conjunto de todos los procesos que envían mensajes en el tiempo
   $d$; entonces, hay dos posibilidades, todos los mensajes de $P$ llegan a su
-  destino en el tiempo $d+1$, o uno dellos se pierde y nunca llega a su destino
+  destino en el tiempo $d+1$, o uno de ellos se pierde y nunca llega a su destino
   y los otros en $P$ si llegan en el tiempo $d+1$.
 
-  Considera un algoritmo $A$ en el que cada proceso $p_i$ tiene com entrada un
+  Considera un algoritmo $A$ en el que cada proceso $p_i$ tiene como entrada un
   identificador $ID_i$, que es un número natural(diferente al de los demás),
   y cada proceso $p_i$ simplemente envia su $ID$, a los otros $n-1$ procesos.
   Dibuja cuales son todos los estados \textit{globales} posibles(mundos posibles) en el tiempo 1 (los procesos mandan sus mensjaes en el tiempo 0). En cada estado global, especifica el estado local de cada proceso, es decir, la información
@@ -39,13 +40,107 @@
   estados. ¿Es posible que cada proceso elija consistentemente uno de los $IDs$
   de entre los que recibió de forma tal que en cada estado global todos los
   procesos eligen el mismo $ID$? Argumenta tu respuesta.
-  \ttfamily
+  \ttfamily  
   %Respoesta
-  
+
+  \hfill\break
+  {\bf Solución:}\hfill\break
+  Primero un poco de notación. Siguiendo la notiación de la ayudantía, la
+  siguiente imagen representa el proceso $n$ en la gráfica y los números azules
+  son su estado local, es decir, los procesos que se comunicaron con él.
+  %ejemplo
+  \begin{figure}[h]
+    \centering
+    \def\svgwidth{2cm}
+    \import{src/}{ejemplo.pdf_tex}
+  \end{figure}
+  \hfill\break
+  %definimos n=3 y mostramos la grafica en tiempo cero
+  Tomemos $n=3$. Enumeramos los tres procesos comenzando desde el cero,
+  así tenemos el conjunto $P=\{p_0, p_1, p_2\}$, que de acuerdo al algoritmo
+  descrito cada proceso $p_i$ envía su $ID$ al resto de procesos. 
+
+  La siguiente gráfica representa el tiempo cero.
+  \begin{figure}[h]
+    \centering
+    \def\svgwidth{5cm}
+    \import{src/}{0.pdf_tex}
+  \end{figure}
+  \hfill\break
+  %Mundos en tiempo uno
+  Lo siguiente es mostrar los casos globales posibles en el tiempo {\bf uno}.
+  El primer caso que mostraremos es el \textit{perfecto}, cuando cada
+  $p_i$ en $P$ recibe el $ID$ del resto de los procesos.
+  \begin{figure}[h]
+    \centering
+    \def\svgwidth{5cm}
+    \import{src/}{mundo_perfecto.pdf_tex}
+  \end{figure}
+
+  %que pex con la pregunta
+  Ahora, de acuerdo con la descripción del problema existen dos posibilidades,
+  la primera antes mencionada y la segunda: ``uno de los mensajes de $P$ se
+  pierde y nunca llega a sus destino y los otros en $P$ si llegan en
+  tiempo $d+1$''.
+
+  %Saliendo del problema
+  $P$ es un conjunto de procesos no de mensajes, pero entendemos que lo que
+  en realidad se pierde es un mensaje de algún proceso $p_i$, no todo el
+  proceso. Por ejemplo, está el caso donde todos los mensajes de $p_1$ y
+  $p_2$ llegan a sus destinos, pero se perdio alguno de $p_0$, digamos el
+  que tenía como destino $p_1$, entonces el mensaje de $p_0$ a $p_2$ sí
+  llegó. La siguiente gráfica muestra dicho caso.
+  \begin{figure}[h]
+    \centering
+    \def\svgwidth{5cm}
+    \import{src/}{falla.pdf_tex}
+  \end{figure}
+
+  La flecha roja no indica que la comunicación se haya roto, simplemente es para
+  ver graficamente cual fue el mensaje no llegó.
+
+  Viendo el ejemplo anterior se observa que cada arista puede fallar dos veces,
+  así el numero de casos a mostrar donde falla es $2\cdot |E| = 2 \cdot 3 = 6$. 
+  \newpage
+  %Casos globales juntos
+  A continuación se muestran esos seis casos, junto al caso perfecto, añadiendo
+  el requisito de la arista entre par de estados globales que no sean capaces
+  de distinguir.
+  \begin{figure}[h]
+    \centering
+    \def\svgwidth{15cm}
+    \import{src/}{globales.pdf_tex}
+  \end{figure}
+  \hfill\break
+  Se observa que para cada proceso cinco, donde para cada proceso uno de estos
+  cinco es el estado global perfecto, de los siete estados globales es el
+  mismo. Al solo conocer su estado local es imposible para el proceso saber
+  que pasa con los demás procesos, ya sea que este en el caso perfecto o en
+  el que un mensaje no llegó.
+
+  %Conclusión
+  Por lo antes mencionado, dada la descripción del problema es imposible que
+  los tres procesos escojan algún $ID$, si bien es cierto que existe el estado
+  global donde no ocurren errores no sabemos si es el más frecuente o no;
+  peor aún si todos los estados globales tienen la misma probabilidad de ocurrir
+  y el proceso donde se ejecute el algoritmo, $p_i$, tiene como estado local
+  la lista con los otros dos estados la probabilidad de que los demás no
+  tengan la misma información que el proceso $p_i$ es de $.8$. Por otro lado,
+  podriamos esperar a tomar la decisión, el algoritmo mencionado no indica que
+  se pueda hacer eso pero si nos lo planteamos  salen otras cuestiones:
+  si el estado $p_i$ solo recibe un $ID$ lo sensato seria que todos escojan
+  ese, pero ahora surge la duda ¿De que manera les comunica que solo recibio
+  uno?, ¿Qué tal si su mensaje indicando que solo recibio un $ID$ no llega a
+  todos?.
+
+  Resumiendo: En un sistema donde la comunicación no es confiable la decisión
+  de escojer el mismo $ID$ consistente con los otros dos procesos no es
+  posible, por que no hay forma de asegurar que información tienen los demás.
   \rmfamily
   % Pregunta dos 
   \newpage
-\item Retomando el proceso de los dos enamorados con los mismos requerimientos
+
+\item  Retomando el proceso de los dos enamorados con los mismos requerimientos
   vistos en clase, responda las siguientes preguntas:
   \begin{itemize}
   \item Suponga que las citas sólo se pueden realizar entre las \textit{21:00}
@@ -62,7 +157,6 @@
   \end{itemize}
   \ttfamily
   %Respoesta
-  
   \rmfamily
 \item Investigue y explica brevemente el protocolo TCP. ¿Es posible resolver
   el problema de los dos amantes si hay un canal TCP confiable entre ambos

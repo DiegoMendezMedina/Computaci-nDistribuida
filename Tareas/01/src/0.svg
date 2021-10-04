@@ -1,0 +1,33 @@
+<svg width='400' height ='220'>
+  /* Grafica completa, tiempo cero*/
+  
+  /* cero a uno  */
+  <line x1="100" y1="200" x2="300" y2="200" style="stroke:#F8F32B;
+						   stroke-width:3"></line>
+  /* cero a dos */
+  <line x1="100" y1="200" x2="200" y2="50" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="200" y1="50" x2="300" y2="200" style="stroke:#F8F32B;
+						  stroke-width:3"></line>
+  
+  /*
+  rosa mexa: #F50087
+  amarillo : #F8F32B
+  */
+
+  /* cero */
+  <circle cx ='100' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='100' cy ='200' r='8' fill = "white"/>
+  <text x="95" y="205" font-family="Consolas">0</text>
+
+  /* uno */
+  <circle cx ='300' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='300' cy ='200' r='8' fill = "white"/>
+  <text x="295" y="205" font-family="Consolas" font-size="5">1</text>
+
+  /* dos */
+  <circle cx ='200' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='200' cy ='50' r='8' fill = "white"/>
+  <text x="195" y="55" font-family="Consolas">2</text>
+</svg>

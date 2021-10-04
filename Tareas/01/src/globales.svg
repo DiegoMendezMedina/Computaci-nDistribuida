@@ -1,0 +1,285 @@
+<svg width='1200' height ='640'>
+  /*
+  seis casos globales
+  */
+    /* ARISTAS QUE NO PUEDEN DISTINGUIR */
+  /* Proceso cero */
+  <line x1="400" y1="600" x2="400" y2="200" style="stroke:orange; 
+						   stroke-width:1"></line>
+  <line x1="100" y1="220" x2="700" y2="220" style="stroke:orange; 
+						   stroke-width:1"></line>
+  <line x1="700" y1="200" x2="700" y2="220" style="stroke:orange; 
+						   stroke-width:1"></line>
+  <line x1="100" y1="220" x2="100" y2="200" style="stroke:orange; 
+						   stroke-width:1"></line>       
+  /* Proceso uno */
+  <line x1="500" y1="450" x2="350" y2="450" style="stroke:green; 
+						   stroke-width:1"></line>
+  <line x1="350" y1="50" x2="350" y2="450" style="stroke:green; 
+						  stroke-width:1"></line>
+  <line x1="350" y1="50" x2="350" y2="450" style="stroke:green; 
+						  stroke-width:1"></line>
+  <line x1="350" y1="50" x2="200" y2="50" style="stroke:green; 
+						 stroke-width:1"></line>
+  <line x1="800" y1="250" x2="200" y2="250" style="stroke:green; 
+						   stroke-width:1"></line>
+  
+  /* Proceso dos */
+  <line x1="600" y1="600" x2="650" y2="600" style="stroke:brown; 
+						   stroke-width:1"></line>
+  <line x1="650" y1="200" x2="650" y2="600" style="stroke:brown; 
+						   stroke-width:1"></line>
+  <line x1="650" y1="200" x2="600" y2="200" style="stroke:brown; 
+						   stroke-width:1"></line>
+  <line x1="900" y1="230" x2="300" y2="230" style="stroke:brown; 
+						   stroke-width:1"></line>
+  <line x1="300" y1="400" x2="300" y2="230" style="stroke:brown; 
+						   stroke-width:1"></line>
+  <line x1="900" y1="200" x2="900" y2="400" style="stroke:brown; 
+						   stroke-width:1"></line>
+  
+  /* PRIMERO falla en p_0 -> p_1*/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="100" y1="200" x2="300" y2="200" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* uno a dos*/
+  <line x1="100" y1="200" x2="200" y2="50" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="200" y1="50" x2="300" y2="200" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='100' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='100' cy ='200' r='8' fill = "white"/>
+  <text x="95" y="205" font-family="Consolas">0</text>
+  /* Estado local: completo */
+  <text x="65" y="205" font-family="Consolas" fill="blue">1,2</text>
+  
+  /* uno */
+  <circle cx ='300' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='300' cy ='200' r='8' fill = "white"/>
+  <text x="295" y="205" font-family="Consolas">1</text>
+  <text x="315" y="205" font-family="Consolas" fill="blue">2</text>
+  
+  /* dos */
+  <circle cx ='200' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='200' cy ='50' r='8' fill = "white"/>
+  <text x="195" y="55" font-family="Consolas" font-size="15">2</text>
+  <text x="195" y="40" font-family="Consolas" fill="blue">0,1</text>
+  
+  /* SEGUNDO falla en p_0->p_2*/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="400" y1="200" x2="600" y2="200" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* uno a dos*/
+  <line x1="400" y1="200" x2="500" y2="50" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="500" y1="50" x2="600" y2="200" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='400' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='400' cy ='200' r='8' fill = "white"/>
+  <text x="395" y="205" font-family="Consolas">0</text>
+  <text x="365" y="205" font-family="Consolas" fill="blue">1,2</text>
+  
+  /* uno */
+  <circle cx ='600' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='600' cy ='200' r='8' fill = "white"/>
+  <text x="595" y="205" font-family="Consolas">1</text>
+  <text x="615" y="205" font-family="Consolas" fill="blue">0,2</text>
+  
+  /* dos */
+  <circle cx ='500' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='500' cy ='50' r='8' fill = "white"/>
+  <text x="495" y="55" font-family="Consolas">2</text>
+  <text x="495" y="40" font-family="Consolas" fill="blue">1</text>
+  
+  /* TERCERO falla p_1->p_2*/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="700" y1="200" x2="900" y2="200" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* uno a dos*/
+  <line x1="900" y1="200" x2="800" y2="50" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="800" y1="50" x2="700" y2="200" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='700' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='700' cy ='200' r='8' fill = "white"/>
+  <text x="695" y="205" font-family="Consolas">0</text>
+  <text x="665" y="205" font-family="Consolas" fill="blue">1,2</text>
+  
+  /* uno */
+  <circle cx ='900' cy ='200' r='10' fill = "#F50087"/>
+  <circle cx ='900' cy ='200' r='8' fill = "white"/>
+  <text x="895" y="205" font-family="Consolas">1</text>
+  <text x="915" y="205" font-family="Consolas" fill="blue">0,2</text>
+  
+  /* dos */
+  <circle cx ='800' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='800' cy ='50' r='8' fill = "white"/>
+  <text x="795" y="55" font-family="Consolas">2</text>
+  <text x="795" y="40" font-family="Consolas" fill="blue">0</text>
+
+  /* CUARTO falla en p_1 -> p_0*/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="100" y1="400" x2="300" y2="400" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* uno a dos*/
+  <line x1="100" y1="400" x2="200" y2="250" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="200" y1="250" x2="300" y2="400" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='100' cy ='400' r='10' fill = "#F50087"/>
+  <circle cx ='100' cy ='400' r='8' fill = "white"/>
+  <text x="95" y="405" font-family="Consolas">0</text>
+  /* Estado local: completo */
+  <text x="65" y="405" font-family="Consolas" fill="blue">2</text>
+  
+  /* uno */
+  <circle cx ='300' cy ='400' r='10' fill = "#F50087"/>
+  <circle cx ='300' cy ='400' r='8' fill = "white"/>
+  <text x="295" y="405" font-family="Consolas">1</text>
+  <text x="315" y="405" font-family="Consolas" fill="blue">0,2</text>
+  
+  /* dos */
+  <circle cx ='200' cy ='250' r='10' fill = "#F50087"/>
+  <circle cx ='200' cy ='250' r='8' fill = "white"/>
+  <text x="195" y="255" font-family="Consolas" font-size="15">2</text>
+  <text x="195" y="240" font-family="Consolas" fill="blue">0,1</text>
+  
+  /* QUINTO falla en p_2->p_1*/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="400" y1="400" x2="600" y2="400" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* uno a dos*/
+  <line x1="400" y1="400" x2="500" y2="250" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="500" y1="250" x2="600" y2="400" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='400' cy ='400' r='10' fill = "#F50087"/>
+  <circle cx ='400' cy ='400' r='8' fill = "white"/>
+  <text x="395" y="405" font-family="Consolas">0</text>
+  <text x="365" y="405" font-family="Consolas" fill="blue">1,2</text>
+  
+  /* uno */
+  <circle cx ='600' cy ='400' r='10' fill = "#F50087"/>
+  <circle cx ='600' cy ='400' r='8' fill = "white"/>
+  <text x="595" y="405" font-family="Consolas">1</text>
+  <text x="615" y="405" font-family="Consolas" fill="blue">0</text>
+  
+  /* dos */
+  <circle cx ='500' cy ='250' r='10' fill = "#F50087"/>
+  <circle cx ='500' cy ='250' r='8' fill = "white"/>
+  <text x="495" y="255" font-family="Consolas" font-size="15">2</text>
+  <text x="495" y="240" font-family="Consolas" fill="blue">0,1</text>
+  
+  /* SEXTO falla p_2->p_0*/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="700" y1="400" x2="900" y2="400" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* uno a dos*/
+  <line x1="900" y1="400" x2="800" y2="250" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a cero */
+  <line x1="800" y1="250" x2="700" y2="400" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='700' cy ='400' r='10' fill = "#F50087"/>
+  <circle cx ='700' cy ='400' r='8' fill = "white"/>
+  <text x="695" y="405" font-family="Consolas">0</text>
+  <text x="665" y="405" font-family="Consolas" fill="blue">1</text>
+  
+  /* uno */
+  <circle cx ='900' cy ='400' r='10' fill = "#F50087"/>
+  <circle cx ='900' cy ='400' r='8' fill = "white"/>
+  <text x="895" y="405" font-family="Consolas">1</text>
+  <text x="915" y="405" font-family="Consolas" fill="blue">0,2</text>
+  
+  /* dos */
+  <circle cx ='800' cy ='250' r='10' fill = "#F50087"/>
+  <circle cx ='800' cy ='250' r='8' fill = "white"/>
+  <text x="795" y="255" font-family="Consolas" font-size="15">2</text>
+  <text x="795" y="240" font-family="Consolas" fill="blue">0,1</text>
+
+  /* SEPTIMO sin fallas/
+  /* ARISTAS */
+  
+  /* cero a uno*/
+  <line x1="400" y1="600" x2="600" y2="600" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* cero a dos*/
+  <line x1="400" y1="600" x2="500" y2="450" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* dos a uno */
+  <line x1="500" y1="450" x2="600" y2="600" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* VERTICES */
+  
+  /* Cero */
+  <circle cx ='400' cy ='600' r='10' fill = "#F50087"/>
+  <circle cx ='400' cy ='600' r='8' fill = "white"/>
+  <text x="395" y="605" font-family="Consolas">0</text>
+  <text x="365" y="605" font-family="Consolas" fill="blue">1,2</text>
+  
+  /* uno */
+  <circle cx ='600' cy ='600' r='10' fill = "#F50087"/>
+  <circle cx ='600' cy ='600' r='8' fill = "white"/>
+  <text x="595" y="605" font-family="Consolas">1</text>
+  <text x="615" y="605" font-family="Consolas" fill="blue">0,2</text>
+  
+  /* dos */
+  <circle cx ='500' cy ='450' r='10' fill = "#F50087"/>
+  <circle cx ='500' cy ='450' r='8' fill = "white"/>
+  <text x="495" y="455" font-family="Consolas" font-size="15">2</text>
+  <text x="495" y="440" font-family="Consolas" fill="blue">0,1</text>
+  
+  /* FALLAS */
+  /* PRIMERA p_0 -> p_1
+  <polygon points="200,190 200,205 220,200" style="fill:red;stroke-width:3"/>
+  
+  /* SEGUNDA p_0 -> p_2*/
+  <polygon points="440,110 460,110 460,130" style="fill:red;stroke-width:3"/>
+
+  /* TERCERA p_1 -> p_2*/
+  <polygon points="840,110 860,120 840,130" style="fill:red;stroke-width:3"/>
+
+  /* CUARTA p_1 -> p_0*/
+  <polygon points="140,400 170,390 170,405" style="fill:red;stroke-width:3"/>
+
+  /* QUINTA p_2 -> p_1*/
+  <polygon points="550,340 565,335 570,350" style="fill:red;stroke-width:3"/>
+
+  /* SEXTA p_2 -> p_0*/
+  <polygon points="740,340 760,330 750,320" style="fill:red;stroke-width:3"/>
+</svg>

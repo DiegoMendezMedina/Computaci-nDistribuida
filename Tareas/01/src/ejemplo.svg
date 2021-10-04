@@ -1,0 +1,8 @@
+<svg width='100' height ='100'>
+  /* n */
+  <circle cx ='50' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='50' cy ='50' r='8' fill = "white"/>
+  <text x="48" y="52" font-family= "Consolas">n</text>
+  /* emparejados */
+  <text x="40" y="68" font-family= "Consolas" fill = "blue">1,t,n/2</text>
+</svg>
