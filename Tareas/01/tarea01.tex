@@ -18,7 +18,7 @@
   Tarea 1\\
   {\large{Información General}}}
 \author{Diego Méndez Medina}
-%\date{}
+\date{}
 \begin{document}
 \ttfamily
 \maketitle
@@ -137,23 +137,111 @@
   de escojer el mismo $ID$ consistente con los otros dos procesos no es
   posible, por que no hay forma de asegurar que información tienen los demás.
   \rmfamily
-  % Pregunta dos 
   \newpage
-
+  % Pregunta dos 
 \item  Retomando el proceso de los dos enamorados con los mismos requerimientos
   vistos en clase, responda las siguientes preguntas:
   \begin{itemize}
   \item Suponga que las citas sólo se pueden realizar entre las \textit{21:00}
     y las \textit{22:00}. ¿Tiene solución el problema en este caso?
-  \item ¿Es el problema soluble cuando se requiere que los amantes deben
-    ser capaces de coordinar una hora para una cita sólo cuando ningún mensaje
-    se pierde, y, en cualquier otro caso, ellos no deberian presentarse?
+    
+    \hfill\break
+    %Respoesta
+    {\bf Solución:}\hfill\break
+    No, lo que hace es disminuir el margen de error. Ejemplo:
+
+    Antes el enamorado podia decirle que a las \textit{10:00}, ella le
+    confirmaba, pero despúes le surge un imprevisto y le pide que mejor sea a
+    las \textit{14:00}, ella no obtiene respuesta. El ultimo mensaje forma
+    parte del conjunto con el mínimo de mensajes para la solución al problema,
+    es decir si el mensaje llega ambos se ven a las \textit{14:00 hrs},
+    si no él llegará a las diez y ella a las catorce. Para ambos no hay forma
+    de actuar estando seguros de lo que hara o lo que conoce el otro.
+    ¿Qué tal que la/el otra/otro envio un mensaje que no me llegó?
+
+    Con el planteamiento de este inciso puede que el le pida sea a las
+    \textit{21:05} ella confirma pero recuerda que no tiene permiso hasta
+    las \textit{21:45}, supongamos que, de nuevo, no obtiene respuesta.
+    Termina ocurriendo lo mismo.
+
+    El problema no radica en el rango de hora, si no en que el sistema de
+    comunicación no es confiable, pues algún mensaje puede perderse en
+    el camino.
+    \hfill\break
+  \item ¿Se puede resolver el problema de los dos amantes cuando se establece
+    como requerimiento que, los amantes deben ser capaces de coordinar una
+    hora para reunirse sólo cuando ningún mensaje se pierde, y en cualquier
+    otro caso, ninguno de ellos debería presentarse?
+    
+    \hfill\break
+    %Respoesta
+    {\bf Solución:}\hfill\break
+    Si ellos son conscientes que hay mensajes perdidios puede que sí.
+    Para empezar el requerimiento nos asegura que en caso de no haber
+    mensajes perdidos ambos son capaces de coordinar una hora, es decir
+    no hay fallas en la comunicación y si las llegase a haber, asumiendo que
+    ellos lo saben, puede que los mensajes que no se enviaron no formen parte
+    de la solución minima, llamemosles mensajes basura. Así si ocurre una falla
+    y todos los mensajes perdidos son mensajes basura ambos tenían la
+    información necesaria para cenar juntos con lo que el fallo no repercutiria
+    pero ellos al no saber mejor deciden
+    no ir, por otro lado, si no todos los mensajes perdidos son basuras entonces
+    al menos un mensaje es necesario para acordar la reunión; de nuevo asumimos
+    que ellos saben que se perdio algún mensaje entonces no van, esta vez
+    acertando pues el encuentro no se haría.
+
+    \hfill\break
+    La respuesta asumiendo que ambos son conscientes de que existe perdida de
+    mensajes es \textit{puede que sí} por que en el caso perfecto donde no hay
+    perdida de mensajes, ambos lo saben entonces se reunen, {\bf pero} al
+    no ser un sistema confiable puede que este caso nunca se presente y no
+    se lleve acabo la cena, no logrando el cometido. Con lo que en realidad
+    la respuesta es no.
+    
+    \hfill\break
+    Si ellos no son conscientes que hay mensajes perdidos la respuesta es
+    definitivamente no pues nos encontramos en la misma situación que sin este
+    requerimiento. Al no ser un sistema que garantice toda comunicación no
+    pueden estar seguros si no se envio o recibio algún mensaje.
+    \hfill\break
   \item Consideremos una variación: Los dos amantes se han dado cuenta de que no
     necesitan ponerse de acuerdo sobre una hora exacta para la reunión, está
     bien si sus horas de reunión son lo suficientemente cercanas.
     En otras palabras, cada uno deberia eventualmente elegir un tiempo,
     de modo que los dos tiempos estén lo suficientemente cerca. ¿Se puede
     resolver su problema?
+    \newpage
+    \hfill\break
+        {\bf Solución:}
+        
+    La respuesta vuelve a ser no. Primero pense:
+    
+    \hfill\break
+    \textit{El problema nunca especifica cuando dos horas son suficientementes
+      cercanas, entonces podria decir que dos horas son suficientemente cercanas
+      en un rango de un día (24 hrs).}
+
+    \hfill\break
+    Pero luego me dí cuenta que eso no tiene sentido en la vida real, en el
+    modo que alguien no va a esperar un día en un restaurante, y además
+    que el sistema no sea confiable vuelve a ser un problema. Al pensar que
+    dos horas suficientementes cercanas son de un día o hasta una semana solo
+    hace lo contrario que el primer inciso de la pregunta dos, ampliar el margen
+    de error.
+    
+    \hfill\break
+    Supongamos que un día es el tiempo suficientemente cerca para
+    que se vean, ahora esta el escenario donde ella le pide se vean a las doce
+    horas del lunes, el confirma pero despues pide sea a las trece horas
+    del mismo lunes, ella recibe el mensaje. Al estar en el rango de las
+    veinticuatro horas ella sigue sin cambiar de hora, está dispuesta a
+    esperar una hora. Pero ahora ella decide cambiar la hora a
+    las nueve de la mañana del miercoles, solo que el mensaje se pierde,
+    ya no entra en el rango de las veinticuatro horas, él debe cambiar su hora. 
+    El cree que sigue en el rango así que no la cambia.
+    Él llega el lunes a las trece, espera hasta las trece del martes y ella no
+    llegá. Misión fallida.
+    \hfill\break
   \end{itemize}
   \ttfamily
   %Respoesta
@@ -162,7 +250,141 @@
   el problema de los dos amantes si hay un canal TCP confiable entre ambos
   amantes?
   \ttfamily
-  % Respoesta 
   
-  \end{enumerate}
+  \hfill\break
+  %Respoesta
+      {\bf Solución:}
+      \hfill\break
+
+      Primero hay que entender que TCP, protocolo de control de transmisión, es
+      un modelo que busca estandarizar la conexión de computadoras.
+      Originalmente contaba de cuatro capas:
+      \begin{enumerate}
+      \item[4.]\textit{Aplicación}
+      \item[3.] \textit{Transporte}
+      \item[2.] \textit{Internet}
+      \item[1.] \textit{Enlace}
+      \end{enumerate}
+      Los cuales como podemos ver estan enumerados de abajo hacia arriba, aunque
+      en realidad la dirección depende si estas recibiendo o enviando
+      tráfico(datos).
+
+      \hfill\break
+      El protocolo se actualizo, ahora cuenta con una capa extra y renombraron
+      la capa internet. Aquí la nueva lista y quienes la conforman:
+      \begin{enumerate}
+      \item[5.]\textit{Aplicación}
+        \hfill\break
+        En esta capa se encuentran los protocolos de las aplicaciónes como
+        lo son HTTP, FTP y SMTP.
+      \item[4.] \textit{Transporte}
+        Aquí se encuentran los protocolos de transporte, los más comunes son
+        TCP y UDP. Tambíen se encuentran los puertos.
+      \item[3.] \textit{Red}
+        Se encuentra el protocolo de itnernet (IP) y los enrutadores.
+      \item[2.] \textit{Enlace}
+        Ethernet y switches.
+      \item[1.]\textit{Fisica}
+        Cables, dispositivos con adaptadored de red.
+      \end{enumerate}
+      Como sirven las capas al enviar información:
+      
+      Cuando alguien envia información está comienza en la capa cinco y va
+      bajando, cada capa agrega su propia informiación en bits, pasar por las
+      cinco capas se llama \textit{encapsulación}. En cuanto alcanzamos la
+      capa física, la información es transmitida a través del dispositivo del
+      receptor. Breve descripción del encapsulamiento:
+      \begin{enumerate}
+      \item[5.]\textit{Aplicación}
+        \hfill\break
+        En está capa se recibe la información.
+        
+        El paquete se ve así:
+        
+        \hfill\break
+        [DATA] y simplemente se le llama data(información).
+      \item[4.] \textit{Transporte}
+        \hfill\break
+        La información de transporte se añade, en esté caso con un encabezado
+        TCP. Cada vez que un encabezado se agrega esté contiene información
+        específica. Los encabezados TCP tienen la información de origen, destino
+        , números de puerto, secuencias de numero y algunos bits más de
+        información.
+        
+        \hfill\break
+        Aqui la información se ve así:
+        \hfill\break
+        [TCP][DATA]
+        y se llama segmento
+      \item[3.] \textit{Red}
+        \hfill\break
+        Se agrega el encabezado IP, que contiene las direcciones IP de origen
+        y destino y más bits de información.
+        
+        \hfill\break
+        La información se ve así:
+        \hfill\break
+        [IP][TCP][DATA]
+        Y se llama Paquete
+      \item[2.] \textit{Enlace}
+        \hfill\break
+        Aquí se agrega un encabezado con las direcciónes MAC de origen y destino
+        más y un \textit{traíler} que es información adicional que se agrega
+        al inicio y al final de un bloque de información que se va a emitir,
+        sirve para marcar el final de bloque y para manejar su información,
+        este en partícular lleva información para que el receptor pueda
+        hacer manejo de errores y asegurarse de recibir bien la información. 
+
+        \hfill\break
+        La información se ve así:
+        \hfill\break
+        [ETHERNET][IP][TCP][DATA][ETHERNET]
+        Y se llama Frame.
+      \item[1.]\textit{Fisica}
+        \hfill\break
+        Se transmite físicamente.
+      \end{enumerate}
+      
+      El dispositivo receptor comienza a \textit{decapsular} la información,
+      checa la dirección MAC de destino del frame, si el frame va dirigido
+      a nuestro computador o dispositivo entonces sigue subiendo.
+      Ahora el computador checa si la dirección IP del paquete está dirigida
+      a el, si es así sigue subiendo.
+      Se lee la información de transporte y la información de la aplicación se
+      envía a la aplicación receptora(WhatsApp, Browser, etc).
+
+      \hfill\break
+      De acuerdo a lo entendido y a una de mis
+      fuentes\footnote{https://www.ibm.com/docs/en/aix/7.1?topic=protocols-transmission-control-protocol}
+      TCP es un medio confiable para la recepción de datos, en el sentido
+      que puedes saber quien la envía, si es para ti e incluso maneja errores
+      para verificar que la información no este dañada, perdida, duplicada o
+      entregada sin haberla pedido.
+
+      \hfill\break
+      Lamentablemente el protocolo no arregla nuestro problema, de hecho
+      en algún sentido lo habiamos dado como un hecho. El protocolo es lo que
+      permite que haya la comunicación entre enamorada y enamorado, nunca
+      especificamos que se comunicaran por cartas o mediante una persona,
+      al menos yo siempre creí que era a través de dispotivos conectados
+      a internet, que para funciónar necesitan algun procotolo(TCP).
+
+      \hfill\break
+      Lo que TCP garantiza es que los mensajes que envie la enamorado no
+      lleguen a otra  persona por accidente y saber cuales de los que recibe
+      son de su enamorado, tambíen garantiza que el mensaje de su enamorado
+      no sea interceptado por un tercero y modificado (Esto ultimo tambien
+      depende un poco de la aplicación que se utilice, pero TCP implementa
+      un pequeño sistema de seguridad), por último TCP asegura que el mensaje
+      recibido sea el mismo al enviado.\footnote{https://cs.stanford.edu/people/eroberts/courses/soco/projects/1999-00/internet/tcp.html}
+
+      \hfill\break
+      TCP únicamente garantiza que intentara un numero indeterminado de veces
+      la entrega de información, y que los frames seran entregados, en caso
+      de encontrar al receptor, en el mismo orden en el que fueron enviados.
+      TCP no influye en la decisión ni en los inconvenientes que tengan los
+      al menos dos miembros de la comunicación, como es que se caiga la
+      conexión, perdida de dispositivos, etc. El problema de los enamorados
+      radica más bien en el problema de la aplicación, no de el protocolo.
+\end{enumerate}
 \end{document}
