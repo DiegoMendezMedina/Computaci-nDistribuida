@@ -1,0 +1,174 @@
+\documentclass[8pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage{csquotes}
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\usepackage{import}
+
+\title{%
+  Tarea 2\\
+  {\large{}}}
+\author{Diego Méndez Medina}
+\date{}
+\begin{document}
+\ttfamily
+\maketitle
+\rmfamily
+\begin{enumerate}
+ %01
+\item Considera un sistema distribuido representado como una gráfica de tipo
+  anillo, cuyos canales son bidireccionales, con $n = mk$ procesos, con $m >1$
+  y $k$ impar. Los procesos en las posiciones $0, k, 2k, ..., (m-1)k$ son
+  macados inicialmente como líderes, mientras que procesos en otras posiciones
+  son seguidores. Todos los procesos tienen un sentido de dirección y pueden
+  distinguir su vecino izquierdo de su vecino derecho, pero ellos no tienen
+  información alguna acerca de sus $ids$.
+
+  El algoritmo $1$ está destinado a permitir que los lideres recluten
+  seguidores. No es difícil ver que todo seguidor eventualmente se agrega a sí
+  mismo a un árbol enraízado con padre en algún líder. Nos gustaría que todos
+  esos árboles tuvieran aproximadamente el mismo número de nodos.
+  \begin{itemize}
+  \item ¿Cuál es el tamaño mínimo y máximo posible de un árbol?
+  \item Dibuja el resultado de una ejecución para e algoritmo con $k = 5$ y
+    $m = 4$
+  \end{itemize}
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 1} Algoritmo de reclutamiento para el problema 1
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  1. {\bf if} yo soy un íder {\bf then}
+  \hfill\break
+  2. \hspace{0.5cm} parent $\leftarrow$ id
+  \hfill\break
+  3. \hspace{0.5cm} {\bf send}($<$ \textit{recluta} $>$) a ambos vecinos
+  \hfill\break
+  4. {\bf else}
+  \hfill\break
+  5. \hspace{0.5cm} parent $\leftarrow$ $\bot$
+  \hfill\break
+  6.{\bf end if}
+
+  \hspace{0.2cm} {\bf Al recibir} recluta desde $p$ {\bf hacer:}
+  \hfill\break
+  7. {\bf if} parent $=$ $\bot$ {\bf then}
+  \hfill\break
+  8. \hspace{0.5cm} parent $\leftarrow$ $p$
+  \hfill\break
+  9. \hspace{0.5cm} {\bf send}($<$ \textit{recluta} $>$) a mi vecino que
+  no es $p$
+  \hfill\break
+  10.{\bf end if}
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  \hfill\break
+  \ttfamily
+  %Respoesta
+  {\bf Solución:}
+
+  \hfill\break
+  \rmfamily
+  %02
+\item Realice un análisis preciso de la complejidad de tiempo y la complejidad
+  de mensajes de :
+  \begin{itemize}
+  \item El algoritmo de broadcastTree.
+  \item El algoritmo de convergecast.
+  \item El algoritmo de broadConvergecastTree.
+  \end{itemize}
+  
+  \hfill\break
+  %Respoesta
+  \ttfamily
+ {\bf Solución:}
+
+ \hfill\break
+  %03
+ \rmfamily
+\item ¿Se basan los algoritmos de broadcastTree y convergecast en el
+  conocimiento acerca del número de nodos en el sistema?¿Por qué?
+
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+      
+  \hfill\break
+  \rmfamily
+  % 04
+\item Investiga y explica brevemente el concepto de time-to-live(TTL) usado en
+  redes de computadoras y úsalo para modificar el algoritmo flooding visto en
+  clase, de modo que un lider comunique un mensaje $M$ a los procesos a
+  distancia a lo más $d$ del líder ($M$ y $d$ son entradas del algoritmo);
+  todos los procesos a distancia mayor no deberian recibir $M$. Da un breve
+  argumento que demuestre que tu algoritmo es correcto, y también haz un
+  analísis de tiempo y número de mensajes.
+
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+
+  \hfill\break
+  \rmfamily
+  % 05
+\item Generaliza el algoritmo convergecast para recolectar toda la información
+  del sistema. Esto es, cuando el algoritmo termine, la raíz debería tener
+  todas las entrdas de todos los procesos. Analiza la complejidad de bits,
+  es decir, el total de bits que son enviados sobre los canales de
+  comunicación. (\textit{hint: Cada mensaje de información puede tomar k bits}).
+  
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+
+  \hfill\break
+  \rmfamily
+  % 06
+\item
+  \begin{enumerate}
+    % a)
+  \item Da un algoritmo distribuido para contar el número de vértices con
+    un árbol enraízado T, iniciando en la raíz.
+    \hfill\break
+    %Respoesta
+    \ttfamily
+    {\bf Solución:}
+
+    \hfill\break
+    \rmfamily
+  % b)
+\item Extiene tu algoritmo para una gráfica arbitraria $G$.
+  
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+
+  \end{enumerate}
+  % 07
+  \rmfamily
+\item Da un algoritmo distribuido para contar el número de vértices en cada
+  capa de un árbol enraízado T de forma separada. Analiza la complejidad
+  de tiempo y la complejidad de mensajes de tu algoritmo.
+
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+
+  \hfill\break    
+\end{enumerate}
+\end{document}
