@@ -1,0 +1,3 @@
+[submodule "Lab/ComputacionDistribuida"]
+	path = Lab/ComputacionDistribuida
+	url = https://github.com/FernandoFong/ComputacionDistribuida
