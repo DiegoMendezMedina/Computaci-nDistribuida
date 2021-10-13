@@ -42,6 +42,7 @@
   \item Dibuja el resultado de una ejecución para e algoritmo con $k = 5$ y
     $m = 4$
   \end{itemize}
+  % Algoritmo 1 RECLUTAMIENTO
   \rule{1\textwidth}{0.2mm}
   {\bf Algoritmo 1} Algoritmo de reclutamiento para el problema 1
   \hfill\break
@@ -59,7 +60,7 @@
   5. \hspace{0.5cm} parent $\leftarrow$ $\bot$
   \hfill\break
   6.{\bf end if}
-
+  
   \hspace{0.2cm} {\bf Al recibir} recluta desde $p$ {\bf hacer:}
   \hfill\break
   7. {\bf if} parent $=$ $\bot$ {\bf then}
@@ -76,34 +77,339 @@
   \ttfamily
   %Respoesta
   {\bf Solución:}
+  
+  Que el número de procesos sea par o no depende de $m$, pues una condición es
+  que $k$ sea impar. El primer caso del algoritmo es cuando $k = 1$ y $m = 2$,
+  de forma que $\{0,1\}$ son los procesos, donde por definición $\{0, (m-1)\cdot
+  k = 1\}$ son los lideres, de forma que para el tiempo uno ya terminamos,
+  con el arbol con raíz $0$ y otro con la raíz $1$. ¿Es esté el arbol, de todos los posibles, el que tiene menor altura?
+  
+  Sí, por que un árbol menor sería sin procesos, lo cúal las especificaciónes
+  no permite. En general van a existir $m$ arboles.
+  
+  Nota: el árbol antes mencionado no es el único de altura cero,
+  considere $k=1$ y $m=3$. Según lo dicho debe haber tres raíces:
+  
+  Tenemos los procesos $\{0,1,2\}$, de forma que dadas las instrucciónes
+  $\{0, k=1, (m-1)\cdot k = 2\}$ son líderes, en el tiempo uno volvemos a
+  terminar, pero al todos tener {\it id} nadie se anexa.
+  Así, el árbol con menor tamaño posible es el que tiene un único elemento y
+  altura cero.
+  \newpage
+  Así pues, tenemos $m$ arboles y $m\cdot k$ procesos, de forma que para
+  cada árbol hay $k$ vertices. Como $k$ siempre es impar y cada capa mayor a
+  cero tiene dos vertices, existen $\frac{k-1}{2}$ capas por árbol.
+  De forma que el arbol con mayor vertices y altura esta determinado por $k$, ya
+  que como mencionamos $m$ solo nos indica el número de arboles que tendran $k$
+  elementos cada uno, entonces este sera cuando $m\in\mathbb{N}$ y $k$ tienda a
+  infinito.
 
+  Ejemplo: Cuando $m=2$ y $k=1001$, cada árbol tiene mil un elementos y altura
+  quinientos.
+
+  Ejemplo: Cuando $m=3$ y $k=1001$, cada árbol tiene mil un elementos y altura
+  quinientos.
+  
+  \hfill\break
+  Resultado de la ejecución con $k = 5$ y $m = 4$:
+  \begin{figure}[h]
+    \centering
+    \def\svgwidth{15cm}
+    \import{src/}{01.pdf_tex}
+  \end{figure}
+  \hfill\break
+  Donde las aristas amarillas indican que procesos son seguidores de quien, y
+  en las grises no hubo comunicación pero siguen existiendo.
   \hfill\break
   \rmfamily
   %02
 \item Realice un análisis preciso de la complejidad de tiempo y la complejidad
   de mensajes de :
   \begin{itemize}
+    %02 BRODCAST
   \item El algoritmo de broadcastTree.
-  \item El algoritmo de convergecast.
-  \item El algoritmo de broadConvergecastTree.
-  \end{itemize}
-  
+    
+    \hfill\break
+    %Respoesta
+    \ttfamily
+    {\bf Solución:}
+
+    Comenzamos enunciando el algoritmo:
+
+    Suponemos la existencia de un árbol generador, $T$.
+
+    % Algoritmo 2 BROADCASTREE
+    \rule{1\textwidth}{0.2mm}
+    {\bf Algoritmo 2} broadcastTree(ID, soyRaiz, {\it M}):
+    \hfill\break
+    \rule{1\textwidth}{0.2mm}
+    1. PADRE, HIJOS, soyRaiz = soyRaiz
+    
+    \hfill\break
+    \hspace*{.2cm} {\bf Inicialmente hacer}
+    \hfill\break
+    2. {\bf Si} soyRaiz {\bf entonces}
+    \hfill\break
+    3. \hspace{0.5cm} {\bf send}($<$ \textit{M} $>$) a todos los HIJOS
+    \hfill\break
+    
+    \hspace{0.2cm} {\bf Al recibir $<${\it M}$>$ de} PADRE:
+    \hfill\break
+    4. \hspace{0.5cm} {\bf send}($<$ \textit{M} $>$) a todos los HIJOS
   \hfill\break
-  %Respoesta
-  \ttfamily
- {\bf Solución:}
+  \rule{1\textwidth}{0.2mm}
+  \hfill\break
+  En clase el profesor menciono que:
+  \begin{itemize}
+  \item Complejidad de los mensajes = $|V|-1$.
+  \item Complejidad de tiempo = $Profundidad(T)$
+  \end{itemize}
+  Lo demostraremos a continuación, sea $G=\{V,E\}$ la gráfica que tiene al
+  árbol generador $T$.
+  \newpage
+  Primero pensemos en la gráfica con un único vertice, llamemoslo $v$ si
+  queremos que el algoritmo termine entonces debe ser raíz. Así:
+  \begin{align*}
+    u &\{\\
+    &\text{Padre} : NULL\\
+    &\text{Hijos} : \emptyset\\
+    &\text{soyRaiz}: TRUE\\
+    &\}
+  \end{align*}
+  Al $v$ ser el único proceso/vertice no le envía el mensaje a nadie, se cumple:
+  \begin{align*}
+    Mensajes(broadcastTree) &= |V|-1 = 1-1 = 0\\
+    Tiempo(broadcastTree) &= Profundidad(T) = 0
+  \end{align*}
 
- \hfill\break
-  %03
- \rmfamily
-\item ¿Se basan los algoritmos de broadcastTree y convergecast en el
-  conocimiento acerca del número de nodos en el sistema?¿Por qué?
+  \hfill\break
+  Generalizando:
 
+  Mensajes:
+  
+  Los únicos vertices que no mandan mensajes son los que su conjunto HIJOS es
+  vacío, es decir las hojas. Y el único vertice que no recibe mensaje es la
+  raíz. Entonces los mensajes enviados son $V-1$.
+
+  Tiempo:
+
+  En el tiempo cero la raíz manda mensaje a todos los elementos del árbol
+  en la capa/profundidad uno. (Ya mostramos el caso si es que la profundidad
+  es cero). Decimos que para el tiempo $t$, con $t\geq 2$, los procesos en la
+  capa/profundidad $t-1$ reciben y envian el mensaje.
+
+  \hfill\break
+  Sea $A=\{u|profundidad(u) = max(profundidad(v)) \forall v\in V\}$, entonces A es el conjunto
+  de procesos de hojas con mayor profundidad. Sea $d=profundidad(T)$.
+
+  Así, todos los demás procesos y en particular, en caso de existir,
+  también las demás hojas que no comparten profundidad con cualquier $u_i\in A$,
+  ya recibieron el mensaje. Si los procesos en la capa $d-1$ son hoja
+  esos procesos ya terminaron, pero existe un vertice $v_i$ para cada
+  proceso en $A$ tal que $d(v_i, u_i) = 1$ y, está de más decirlo pero lo
+  repetimos, $profundidad(v_i) = d-1$. Así en el tiempo $d-1$
+  recibieron y enviaron el mensaje, con lo que en $d$ terminamos.
+
+  Concluimos:
+  \begin{align*}
+    Mensajes(broadcastTree) &= |V|-1 \\
+    Tiempo(broadcastTree) &= Profundidad(T)
+  \end{align*}
+  \rmfamily
+  \newpage
+  %02 CONVERGECAST
+\item El algoritmo de convergecast.
+  
   \hfill\break
   %Respoesta
   \ttfamily
   {\bf Solución:}
       
+  Comenzamos enunciando el algoritmo:
+  
+  Suponemos la existencia de un árbol generador, $T$.
+
+  % Algoritmo 3
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 3} convergecast():
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. PADRE, HIJOS, recibidos = 0
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  2. {\bf Si} |HIJOS| == 0 {\bf entonces}
+  \hfill\break
+  3. \hspace{0.5cm} {\bf send}($<$ \textit{ok} $>$) a PADRE
+  \hfill\break
+  
+  \hspace{0.2cm} {\bf Al recibir $<${\it ok}$>$ de algún puerto} en HIJOS:
+  \hfill\break
+  4. recibidos++
+  \hfill\break
+  5. {\bf Si} recibidos == |HIJOS| {\bf entonces:}
+  \hfill\break
+  6. \hspace{1cm} {\bf send}($<$ \textit{ok} $>$) a PADRE
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+
+  \hfill\break
+  % fin algoritmo
+  En clase el profesor menciono que:
+  \begin{itemize}
+  \item Complejidad de los mensajes = $|V|-1$.
+  \item Complejidad de tiempo = $Profundidad(T)$
+  \end{itemize}
+  Lo demostraremos a continuación, sea $G=\{V,E\}$ la gráfica que tiene al
+  árbol generador $T$.
+
+  \hfill\break
+  Los algoritmos antes mencionados siempre hacian uso de la variable $soyRaiz$,
+  si bien en este esta inicializada, no hacemos uso de ella. Lo que hace esté
+  algoritmo es empezar con las hojas, que por definición su conjunto HIJOS
+  es vacío, y de ahí subir. De nuevo comencemos viendo si para la gráfica
+  con un unico proceso se cumple. Sea $u$ el único proceso, entonces en el
+  tiempo cero el estado de $u$ es:
+  \begin{align*}
+    u &\{\\
+    &\text{Padre} : NULL\\
+    &\text{Hijos} : \emptyset\\
+    &\text{soyRaiz}: TRUE\\
+    &\text{recibidos}: 0\\
+    &\}
+  \end{align*}
+  Su padre es NULL, si bien el algoritmo no especifica que en caso de ser
+  raíz y $|HIJOS|== 0$ o $recibidos == |HIJOS|$ deberiamos terminar,
+  entendemos que al ser padre vacio no se envía mensaje o más bien nadie
+  lo recibe. En el tiempo $0$ se cumple que $|HIJOS|==0$,
+  con lo que no hay una siguiente ejecución. Se cumple:
+  \begin{align*}
+    Mensajes(convergecast) &= |V|-1 = 1-1 = 0\\
+    Tiempo(convergecast) &= Profundidad(T) = 0
+  \end{align*}
+  \newpage
+  Generalicemos:
+  
+  Veremos casos donde hay mas de un vertice, pues el anterior ya lo mostramos.
+  En el tiempo cero, los  primeros $k$ mensajes enviados son de las $k$ hojas
+  del árbol $T$ que cumplen con la condición enumerada dos en el algoritmo.
+
+  Con lo que en el tiempo uno, al menos un proceso recibe $r$ con
+  $1\leq r\leq k$ mensajes, pues existe el caso que algún vertice tenga
+  $k$ hojas como hijos.
+
+  Existen al menos $m\geq 1$ procesos que para el tiempo dos se cumple
+  $HIJOS==recibidos$, pues en caso de ser contrario el algoritmo no terminaria.
+  Si $m$ es uno, llamemos a ese proceso $v$, entonces $v$ recibio $k$ mensajes.
+
+  \hfill\break
+  Sea $A=\{u|\ profundidad(u) == profundidad(T)\}$, entonces en $A$ están las
+  hojas de mayor profundidad. Observese que no necesariamente todos los
+  elementos de $A$ son los que comienzan a mandar mensaje, pues puede existir
+  una hoja de menor profundidad que al ser hoja cumple con la condicion inicial.
+  Sea $B=\{$hojas que no tienen profundidad igual a la profundiad del arbol$\}$.
+
+  Si $profundiad(T) == 1$ ya terminamos, pues $|B| = 0$ y para los $|A|$
+  procesos su padre era la raíz.
+
+  Sea $profundiad(T) = d$, así $A=\{u_1, u_2, ..., u_n\}$. Entonces $n +|B|$
+  procesos envian mensajes en el tiempo cero, no podemos asegurar nada de los
+  $|B|$ mensajes, pero si podemos afirmar que para el tiempo uno
+  los $n$ procesos llenan la capa $d-1$ del árbol, por que para 
+  los vértices de esa capa solo es posible que tengan hijos en la profundidad
+  del árbol o sean hojas. Así en el tiempo $t$ podemos asegurar que se llena
+  la capa $d-t$. El algoritmo termina cuando se llena la capa cero. Garantizamos
+  que la capa cero se llena en el tiempo $t$ tal que $d-t = 0$, que es en el
+  tiempo $t=d._\square$
+
+  \hfill\break
+  La complejidad de los mensajes se sigue de lo antes dicho, cada proceso envía
+  mensaje una única vez, primero los de la capa $d$  y termina hasta que la capa
+  uno se reporta con la raíz.
+  \newpage
+  \rmfamily
+  %02 broadCONVERGAST
+\item El algoritmo de broadConvergecastTree.
+  
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+  
+  Suponemos la existencia de un árbol generador, $T$.
+
+  % Algoritmo 4
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 4} broadConvergecastTree(ID, soyRaiz):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. PADRE, HIJOS, soyRaiz = soyRaiz, vecinos = 0
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  2. {\bf Si} soyRaiz {\bf entonces}
+  \hfill\break
+  3. \hspace{0.5cm} {\bf send}($<$ \textit{START} $>$) a todos en HIJOS
+  \hfill\break
+  
+  \hspace{0.2cm} {\bf Al recibir $<${\it START}$>$ de } PADRE:
+  \hfill\break
+  4. {\bf Si} |HIJOS| $\neq 0$ {\bf entonces:}
+  \hfill\break
+  5. \hspace{.5cm} {\bf send}$(<$ {\it START}$>)$ a todos en HIJOS
+  \hfill\break
+  6. {\bf Sino} 
+  \hfill\break
+  7. \hspace{1cm} {\bf send}($<$ \textit{ok} $>$) a PADRE
+  \hfill\break
+
+  \hspace{0.2cm} {\bf Al recibir $<${\it ok}$>$ de algún puerto} en HIJOS:
+  \hfill\break
+  8. vecinos++
+  \hfill\break
+  9. {\bf Si} vecinos == |HIJOS| entonces:
+  \hfill\break
+  10.\hspace{0.5cm} {\bf Si} soyRaiz entonces:
+  \hfill\break
+  11.\hspace{1cm} {\bf Reportar terminación}
+  \hfill\break
+  12.\hspace{0.5cm} {\bf Sino}
+  \hfill\break
+  13. \hspace{1cm}{\bf send}$(<${\it ok}$>)$ a PADRE
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+
+  \hfill\break
+  % fin algoritmo
+  \end{itemize}
+  
+  \hfill\break
+  %03
+  \rmfamily
+\item ¿Se basan los algoritmos de broadcastTree y convergecast en el
+  conocimiento acerca del número de nodos en el sistema?¿Por qué?
+  
+  \hfill\break
+  %Respoesta
+  \ttfamily
+  {\bf Solución:}
+
+  Al ser un sistema distribuido un proceso no esta al tanto de los HIJOS de
+  otro proceso y no hay tal cual una varible global que nos indice el número
+  total de vertices, pero si cada proceso no conociera el número de sus
+  hijos convergecast no funcionaría, pues es lo que le permite identificar
+  a un proceso que no esta esperando algún mensaje.
+
+  El número de nodos en los arboles resulta ser la suma de los HIJOS de todos
+  los vertices + 1(la raíz), esto por que no hay ciclos.
+  
+  \hfill\break
+  Por otro lado broadcastTree solo utiliza al PADRE, si tuvieramos un conjunto
+  que indique a los padres no podemos saber mucho acerca del total de procesos
+  en el sistema (arbol no binario), de forma que broadcastTree no se basa en
+  eso.
   \hfill\break
   \rmfamily
   % 04
@@ -114,12 +420,79 @@
   todos los procesos a distancia mayor no deberian recibir $M$. Da un breve
   argumento que demuestre que tu algoritmo es correcto, y también haz un
   analísis de tiempo y número de mensajes.
-
+  
   \hfill\break
   %Respoesta
   \ttfamily
   {\bf Solución:}
 
+  Time to live o tiempo de vida, también conocido como hop limit o limite de
+  saltos, es una herramienta que delimita el lapso de vida de información en
+  una computadora o una red. TTL suele ser implementado con algún contador o
+  con un sello, es decir una secuencia de caracteres (cadenas) o información
+  decodificada, que en cuanto el contador llegue a su objetivo o el sello
+  expire, la información es descartada o revalidad. En las redes de
+  computadoras, TTL previene que un paquete circule indefinidamente.
+  TTL también suele utilizarse en sistemas cache.
+
+  \hfill\break
+  Mostramos nuestro algoritmo:
+  
+  % Algoritmo 5
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 5} floodingTTL(ID, Lider, M, d):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. flag = {\bf false}
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  2. {\bf Si} ID == Lider {\bf entonces} // Soy el lider
+  \hfill\break
+  3. \hspace{0.5cm} flag = {\bf true}
+  \hfill\break
+  4. \hspace{0.5cm} {\bf send}(<M, 1>) por todos los puertos
+
+  \hfill\break
+  \hspace{0.2cm} {\bf Al recibir algún mensaje $<${\it M, cont}$>$ de algún
+    puerto:}
+  \hfill\break
+  5. {\bf Si not} flag {\bf and} $cont < d$ {\bf entonces:}
+  \hfill\break
+  6. \hspace{1cm} flag = {\bf true}
+  \hfill\break
+  7. \hspace{1cm} {\bf send}(<M, cont+1>) por todos los puertos
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+
+  Primero pense en crear una variable $cont$, pero los demas procesos no tienen
+  acceso a las variables de los démas, entonces en el caso del lider
+  decidí enviar $M$ junto a $1$, que es la distancía de si mismo a que la envia,
+  para el caso donde reciben $M$ y el entero $cont$, sí no habían enviado el
+  mensaje previamente y el entero es menor al rango que todos reciben entonces
+  el proceso envía el mensaje a todos sus puertos junto al contador incrementado
+  en uno. La condición es menor y no menor o igual por que con el menor
+  garantizo que llegara al sucesor del predecesor de $d$, es decir $d$. Y si
+  hubiese sido menor o igual el mensaje llegaría a los distancia $d+1$.
+
+  \hfill\break
+  Recordemos que en flooding los mensajes rebotan, si bien los procesos que
+  ya enviaron el mensaje solo lo hacen una vez, estos escuchan el mensaje
+  $n$ veces, donde $n$ es el número de puertos a los que está conectado.
+
+  Ahora no podemos garantizar que todo elemento reciba el mensaje, pues
+  es solo para procesos $p$ tales que $d(raiz, p) \leq d$
+
+  En la clase habiamos considerado las aristas como bidireccionales
+  de forma que ahora no necesariamente se envian $2|E|$ mensajes. Considere
+  el siguiente conjunto
+  $$E' = \{uv|\  d(raiz, u) \leq d \land d(raiz, v)\leq d\}$$
+  Así, si seguimos considerando bidireccionales las aristas se envian $2|E'|$
+  mensajes.
+
+  Nota: Para que se envien $2|E|$ aristas se debe cumplir que para cualquier
+  vertice , $v$, $d(raiz, v) \leq d$.
   \hfill\break
   \rmfamily
   % 05
@@ -134,30 +507,169 @@
   \ttfamily
   {\bf Solución:}
 
+  De nuevo suponemos existe el arbol generador, T.
+  
+  % Algoritmo 6
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 6} convergecastRecolecta(input, soyRaiz):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. PADRE, HIJOS, soyRaiz = soyRaiz, recibidos = 0, micadena = input
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  2. {\bf Si} |HIJOS| == 0 {\bf entonces}
+  \hfill\break
+  3. \hspace{0.5cm} {\bf send}($<$ \textit{ok, micadena} $>$) a PADRE
+  \hfill\break
+  
+  \hspace{0.2cm} {\bf Al recibir $<${\it ok, cadena}$>$ de algún puerto}
+  en HIJOS:
+  \hfill\break
+  4. recibidos++
+  \hfill\break
+  5. micadena = micadena{\it ++}'', ''{\it ++}cadena
+  \hfill\break
+  6. {\bf Si} recibidos == |HIJOS| {\bf entonces:}
+  \hfill\break
+  7. \hspace{0.5cm} {\bf Si} soyRaiz {\bf entonces:}
+  \hfill\break
+  8. \hspace{1cm} {\bf regresa}(micadena) // fin algoritmo
+  \hfill\break
+  9. \hspace{0.5cm} {\bf else}
+  \hfill\break
+  10. \hspace{1cm} {\bf send}($<$ \textit{ok, micadena} $>$) a PADRE
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  Donde {\it ++} es la concatenación de cadenas.
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+
+  En el tiempo cero la variable micadena, inicializada con input, vale/contiene
+  $k$ bits para todos los procesos. Los mensajes en el tiempo cero siguen partiendo de las hojas.
+
+  Si tenemos un único proceso, en el tiempo cero acaba y el total de bits
+  enviados es cero. 
+
+  Si $profundidad(T)==1$ entonces los $|V|-1$ vertices envian en el tiempo
+  cero su entrada de $k$ bits, con lo que el total de bits enviados es
+  $(|V|-1)\cdot k$. Para el tiempo uno raíz concatena su cadena inicial con
+  las $|V|-1$ y el algoritmo termina. Si consideramos el reporte final de
+  la raíz circulan $(|V|)\cdot k$ bits.
+
+  Supongamos $profundidad(T)=d$.
+  
+  Para cada mensaje que le llegue a cualquier proceso, este proceso concatena
+  la cadena recibida con la cadena micadena, inicializada en tiempo cero con la
+  entrada del proceso.
+  Así en el tiempo uno cuando sea el turno de enviar la variable micadena
+  para todo proceso en la capa $d-1$, esta pesara $(|HIJOS|+1)\cdot k$, de
+  manera que en el tiempo $t+1$, se garantiza que todo proceso en la capa
+  $d-t$ envió su micadena a su padre que pesa $(|HIJOS|+1)\cdot k$ más lo
+  acumulado por cada hijo. 
+
+  Entonces el total de bits enviados sobre los canales de comunicación, si
+  consideramos el reporte final de la raíz, es la suma de todos los
+  vertices de las capas $c_i$ con $i\in[0,1,...,d]$, que por definición es
+  $|V|$. Si se considera que el algoritmo termina en cuanto la capa 1
+  le reporta a la raíz entonces son los vertices en las capas $[1,...,d]$,
+  que es $(|V|-1)\cdot k$ bits.
+  
+
   \hfill\break
   \rmfamily
   % 06
 \item
   \begin{enumerate}
     % a)
-  \item Da un algoritmo distribuido para contar el número de vértices con
+  \item Da un algoritmo distribuido para contar el número de vértices en
     un árbol enraízado T, iniciando en la raíz.
     \hfill\break
     %Respoesta
     \ttfamily
     {\bf Solución:}
 
-    \hfill\break
-    \rmfamily
+    % Algoritmo 7
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 7} broadConvergecastTreeCuentaV(ID, soyRaiz):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. PADRE, HIJOS, soyRaiz = soyRaiz, vecinos = 0, vertices = 1
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  2. {\bf Si} soyRaiz {\bf entonces}
+  \hfill\break
+  3. \hspace{0.5cm} {\bf Si} |HIJOS == 0| {\bf entonces:}
+  \hfill\break
+  4. \hspace{1cm} {\bf regresa} 1
+  \hfill\break
+  5. \hspace{0.5cm} {\bf Sino}
+  \hfill\break
+  6. \hspace{1cm} {\bf send}($<$ \textit{START} $>$) a todos en HIJOS
+  \hfill\break
+  
+  \hspace{0.2cm} {\bf Al recibir $<${\it START}$>$ de } PADRE:
+  \hfill\break
+  7. {\bf Si} |HIJOS| $\neq 0$ {\bf entonces:}
+  \hfill\break
+  8. \hspace{.5cm} {\bf send}$(<$ {\it START}$>)$ a todos en HIJOS
+  \hfill\break
+  9. {\bf Sino} 
+  \hfill\break
+  10. \hspace{1cm} {\bf send}($<$ \textit{ok, 1} $>$) a PADRE
+  \hfill\break
+
+  \hspace{0.2cm} {\bf Al recibir $<${\it ok, accum}$>$ de algún puerto} en HIJOS:
+  \hfill\break
+  11. vecinos++
+  \hfill\break
+  12. vertices = vertices + accum
+  \hfill\break
+  13. {\bf Si} vecinos == |HIJOS| entonces:
+  \hfill\break
+  14.\hspace{0.5cm} {\bf Si} soyRaiz entonces:
+  \hfill\break
+  15.\hspace{1cm} {\bf Regresa} vertices // fin
+  \hfill\break
+  16.\hspace{0.5cm} {\bf Sino}
+  \hfill\break
+  17. \hspace{1cm}{\bf send}$(<${\it ok, vertices}$>)$ a PADRE
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+
+  \hfill\break
+  % fin algoritmo
+  \rmfamily
   % b)
-\item Extiene tu algoritmo para una gráfica arbitraria $G$.
+\item Extiende tu algoritmo para una gráfica arbitraria $G$.
   
   \hfill\break
   %Respoesta
   \ttfamily
   {\bf Solución:}
 
+      % Algoritmo 8
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 8} broadConvergecastGraphCuentaV(ID, soyRaiz):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  \hspace{0.2cm} {\bf Ejecutar inicialmente:}
+  \hfill\break
+  1. buildSpanningTree(ID, root, <hola?>)
+  \hfill\break
+  \hspace{0.2cm}{\bf  Dado el árbol T obtenido en el paso uno:}
+  \hfill\break
+  2. broadConvergecastTreeCuentaV(ID, soyRaiz) // Algoritmo 7 de esta tarea.
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+
+  \hfill\break
+  % fin algoritmo
   \end{enumerate}
+  \newpage
   % 07
   \rmfamily
 \item Da un algoritmo distribuido para contar el número de vértices en cada

@@ -1,0 +1,185 @@
+<svg width='550' height ='220'>
+  /* Arboles k = 5 y m = 4*/
+
+  /* Aristas donde no hay comunicación: */
+
+  /* 2 -> 3 */
+  <line x1="90" y1="150" x2="140" y2="150" style="stroke:grey;
+						stroke-width:3"></line>
+  
+  /* 7 -> 8 */
+  <line x1="210" y1="150" x2="260" y2="150" style="stroke:grey;
+						stroke-width:3"></line>
+  /* 12 -> 13 */
+  <line x1="420" y1="150" x2="350" y2="150" style="stroke:grey;
+						stroke-width:3"></line>
+  /* aux 18 -> 17 */
+  <line x1="10" y1="150" x2="10" y2="180" style="stroke:grey;
+						 stroke-width:3"></line>
+  /* aux 18 -> 17 */
+  <line x1="10" y1="180" x2="510" y2="180" style="stroke:grey;
+						  stroke-width:3"></line>
+  /* aux 18 -> 17 */
+  <line x1="510" y1="150" x2="510" y2="180" style="stroke:grey;
+						  stroke-width:3"></line>
+  /* PRIMER ARBOL, raiz cero */
+
+  /* 0-> 19  */
+  <line x1="50" y1="50" x2="30" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 0-> 1  */
+  <line x1="50" y1="50" x2="70" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 19 -> 18 */
+  <line x1="30" y1="100" x2="10" y2="150" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* 1 -> 2 */
+  <line x1="70" y1="100" x2="90" y2="150" style="stroke:#F8F32B;
+						  stroke-width:3"></line>
+
+  /* RAIZ cero*/
+  <circle cx ='50' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='50' cy ='50' r='8' fill = "white"/>
+  <text x="45" y="55" font-family="Consolas">0</text>
+  
+  /* Primera capa: diecinueve */
+  <circle cx ='30' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='30' cy ='100' r='8' fill = "white"/>
+  <text x="23" y="105" font-family="Consolas">19</text>
+  
+  /*Primera capa: uno */
+  <circle cx ='70' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='70' cy ='100' r='8' fill = "white"/>
+  <text x="65" y="105" font-family="Consolas">1</text>
+  
+  /* SC: dieciocho */
+  <circle cx ='10' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='10' cy ='150' r='8' fill = "white"/>
+  <text x="3" y="155" font-family="Consolas">18</text>
+  
+  /* SC: dos */
+  <circle cx ='90' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='90' cy ='150' r='8' fill = "white"/>
+  <text x="85" y="155" font-family="Consolas">2</text>
+
+  
+  /* SEGUNDO ARBOL, raiz cinco */
+
+  /* 5->4  */
+  <line x1="180" y1="50" x2="160" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 5 -> 6  */
+  <line x1="180" y1="50" x2="200" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 4 -> 3 */
+  <line x1="160" y1="100" x2="140" y2="150" style="stroke:#F8F32B; 
+						  stroke-width:3"></line>
+  /* 6 -> 7 */
+  <line x1="200" y1="100" x2="220" y2="150" style="stroke:#F8F32B;
+						  stroke-width:3"></line>
+
+  /* RAIZ cinco*/
+  <circle cx ='180' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='180' cy ='50' r='8' fill = "white"/>
+  <text x="175" y="55" font-family="Consolas">5</text>
+  
+  /* Primera capa: cuatro */
+  <circle cx ='160' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='160' cy ='100' r='8' fill = "white"/>
+  <text x="155" y="105" font-family="Consolas">4</text>
+  
+  /*Primera capa: seis */
+  <circle cx ='200' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='200' cy ='100' r='8' fill = "white"/>
+  <text x="195" y="105" font-family="Consolas">6</text>
+  
+  /* SC: tres */
+  <circle cx ='140' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='140' cy ='150' r='8' fill = "white"/>
+  <text x="135" y="155" font-family="Consolas">3</text>
+  
+  /* SC: siete*/
+  <circle cx ='220' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='220' cy ='150' r='8' fill = "white"/>
+  <text x="215" y="155" font-family="Consolas">7</text>
+
+  /* TERCER ARBOL, raiz diez */
+
+  /* 10->9  */
+  <line x1="310" y1="50" x2="290" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 10 -> 11  */
+  <line x1="310" y1="50" x2="330" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 9 -> 8 */
+  <line x1="290" y1="100" x2="270" y2="150" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* 11 -> 12 */
+  <line x1="330" y1="100" x2="350" y2="150" style="stroke:#F8F32B;
+						  stroke-width:3"></line>
+
+  /* RAIZ diez*/
+  <circle cx ='310' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='310' cy ='50' r='8' fill = "white"/>
+  <text x="303" y="55" font-family="Consolas">10</text>
+  
+  /* Primera capa: nueve */
+  <circle cx ='290' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='290' cy ='100' r='8' fill = "white"/>
+  <text x="285" y="105" font-family="Consolas">9</text>
+  
+  /*Primera capa: once */
+  <circle cx ='330' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='330' cy ='100' r='8' fill = "white"/>
+  <text x="323" y="105" font-family="Consolas">11</text>
+  
+  /* SC: ocho */
+  <circle cx ='270' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='270' cy ='150' r='8' fill = "white"/>
+  <text x="265" y="155" font-family="Consolas">8</text>
+  
+  /* SC: doce */
+  <circle cx ='350' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='350' cy ='150' r='8' fill = "white"/>
+  <text x="343" y="155" font-family="Consolas">12</text>
+
+  /* CUARTO ARBOL, raiz quince */
+    
+  /* 15->14  */
+  <line x1="470" y1="50" x2="450" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 15 -> 16  */
+  <line x1="470" y1="50" x2="490" y2="100" style="stroke:#F8F32B;
+						stroke-width:3"></line>
+  /* 14 -> 13 */
+  <line x1="450" y1="100" x2="430" y2="150" style="stroke:#F8F32B; 
+						   stroke-width:3"></line>
+  /* 16 -> 17 */
+  <line x1="490" y1="100" x2="510" y2="150" style="stroke:#F8F32B;
+						  stroke-width:3"></line>
+
+  /* RAIZ quince */
+  <circle cx ='470' cy ='50' r='10' fill = "#F50087"/>
+  <circle cx ='470' cy ='50' r='8' fill = "white"/>
+  <text x="463" y="55" font-family="Consolas">15</text>
+  
+  /* Primera capa: catoece */
+  <circle cx ='450' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='450' cy ='100' r='8' fill = "white"/>
+  <text x="443" y="105" font-family="Consolas">14</text>
+  
+  /*Primera capa: diecises */
+  <circle cx ='490' cy ='100' r='10' fill = "#F50087"/>
+  <circle cx ='490' cy ='100' r='8' fill = "white"/>
+  <text x="483" y="105" font-family="Consolas">16</text>
+  
+  /* SC: trece */
+  <circle cx ='430' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='430' cy ='150' r='8' fill = "white"/>
+  <text x="423" y="155" font-family="Consolas">13</text>
+  
+  /* SC: diecisiete */
+  <circle cx ='510' cy ='150' r='10' fill = "#F50087"/>
+  <circle cx ='510' cy ='150' r='8' fill = "white"/>
+  <text x="503" y="155" font-family="Consolas">17</text>
+</svg>
