@@ -381,6 +381,29 @@
   \hfill\break
   \rule{1\textwidth}{0.2mm}
 
+  Con todos los $START$ se recorre el arbol de raíz hasta las hojas, con lo
+  que se envían $|V|-1$ mensajes $START$. Luego con los $ok$ se recorre
+  el arbol de hojas a raíz con lo que se envían $|V|$ $ok$. En total se envían
+  $2\cdot|V|-1$ mensajes.
+
+  \hfill\break
+  Como toma una unidad de tiempo ir de una capa a otra, para cualquier
+  proceso $p$ $START$ le llega en $d(raiz, p)$ unidades de tiempo. Entonces
+  $$Tiempo(START) = profundidad(T)$$
+
+  EL mensaje $ok$ es un poco más complicado, por que es necesario
+  esperar que todos los hijos contesten. Y no siempre ocurre que
+  todos los hijos de un proceso esten a la misma profundidad. Así, en el peor
+  caso donde un vértice espera por al menos uno de sus hijos es cuando:
+  la raíz tiene dos hijos, uno de ellos es hoja y el otro
+  su subarbol tiene profundidad igual a la profundidad del arbol original
+  menos uno. Para que la raíz se reporte va a tener que esperar a que se envien
+  los $START$ que ya sabemos que toma $profundidad(T)$ mas lo que tome
+  el árbol en subir, que tambien es $profundidad(T)$. En este caso la raíz
+  de esperar $profundidad(T)-2$ unidades de tiempo despues de haber recibido
+  el $ok$ de su hijo hoja. Y el peor caso de tiempo en general es cuando
+  ambos hijos tienen subarboles altura $profundidad(T)-1$. Concluimos:
+  $$Tiempo(ok) = 3\cdot profundidad(T)$$
   \hfill\break
   % fin algoritmo
   \end{itemize}
@@ -507,7 +530,8 @@
   \ttfamily
   {\bf Solución:}
 
-  De nuevo suponemos existe el arbol generador, T.
+  De nuevo suponemos existe el arbol generador, T. Suponiendo que la entrada
+  de los algoritmos es una cadena.
   
   % Algoritmo 6
   \rule{1\textwidth}{0.2mm}
@@ -542,7 +566,7 @@
   10. \hspace{1cm} {\bf send}($<$ \textit{ok, micadena} $>$) a PADRE
   \hfill\break
   \rule{1\textwidth}{0.2mm}
-  Donde {\it ++} es la concatenación de cadenas.
+  Donde {\it ++} es la concatenación de cadenas/mensajes.
   \hfill\break
   \rule{1\textwidth}{0.2mm}
 
@@ -640,7 +664,7 @@
   \hfill\break
   \rule{1\textwidth}{0.2mm}
 
-  \hfill\break
+  \newpage
   % fin algoritmo
   \rmfamily
   % b)
@@ -669,7 +693,6 @@
   \hfill\break
   % fin algoritmo
   \end{enumerate}
-  \newpage
   % 07
   \rmfamily
 \item Da un algoritmo distribuido para contar el número de vértices en cada
@@ -681,6 +704,202 @@
   \ttfamily
   {\bf Solución:}
 
-  \hfill\break    
+  Se nos ocurre la siguiente forma de ver el número de elementos por capas:
+  \begin{align*}
+    \text{capa } 0 &= Raiz\\
+    \text{capa } 1 &= |Raiz.HIJOS|\\
+    \text{capa } 2 &= \sum_{v\in V_1} |v.HIJOS| & &\text{Donde } V_1 =\{v\in V |
+    d(raiz, v) = 1\}\\
+    . \\
+    . \\
+    . \\
+    \text{capa } n &=  \sum_{v\in V_{n-1}} |v.HIJOS| & &\text{Donde } V_{n-1} =
+    \{v\in V | d(raiz, v) = profundidad(T)-1\}
+  \end{align*}
+
+  De forma que para obtener los vertices de una capa $k$, los elementos en la
+  capa $k-1$ tienen que regresar la cardinalidad de sus HIJOS.
+
+  Para nuestro algoritmo cualquier procesos, $p$, debe tener la siguiente
+  memoria/composición:
+  \begin{align*}
+    u&\{ \\
+    &padre = \text{Puerto}\\
+    &soyRaiz = \text{Booleano}\\
+    &HIJOS = \text{Conjunto de puertos} \\
+    &profundidad = n \in \mathbb{N} \\
+    &\}
+  \end{align*}
+
+  Primero es necesario hacer mención de un algoritmo auxiliar que a cada proceso
+  llena la variable profundidad con su profundidad correspondiente y que regresa
+  la profundidad del árbol.
+
+  \newpage
+  % Algoritmo 8
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 8} profundidadT(soyRaiz):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. PADRE, HIJOS, profundidad, soyRaiz = soyRaiz, vecinos = 0, max = 0
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  2. {\bf Si} soyRaiz {\bf entonces}
+  \hfill\break
+  3. \hspace{0.5cm} profundidad = 0
+  \hfill\break
+  4. \hspace{0.5cm} {\bf Si} |HIJOS| == 0 {\bf entonces:}
+  \hfill\break
+  5. \hspace{1cm} {\bf regresa} 0
+  \hfill\break
+  6. \hspace{0.5cm} {\bf Sino}
+  \hfill\break
+  7. \hspace{1cm} {\bf send}($<$ 1 $>$) a todos en HIJOS
+  \hfill\break
+  
+  \hspace{0.2cm} {\bf Al recibir $< n >$ de } PADRE:
+  \hfill\break
+  8. profundidad = n
+  \hfill\break
+  9. {\bf Si} $|HIJOS| ==  0$ {\bf entonces:}
+  \hfill\break
+  10. \hspace{.5cm} {\bf send}$(<$ {\it termine}, n$>)$ a PADRE
+  \hfill\break
+  11. {\bf Sino} 
+  \hfill\break
+  12. \hspace{1cm} {\bf send}($<$ n+1 $>$) a todos en HIJOS
+  \hfill\break
+
+  \hspace{0.2cm} {\bf Al recibir $<${\it termine }, n$>$ de algún puerto}
+  en HIJOS:
+  \hfill\break
+  13. vecinos++
+  \hfill\break
+  14. {\bf Si} n > max {\bf entonces:}
+  \hfill\break
+  15. \hspace{.5cm} max = n
+  \hfill\break
+  16. {\bf Si} $vecinos ==  |HIJOS|$ {\bf entonces:}
+  \hfill\break
+  17.\hspace{0.5cm}{\bf Si} soyRaiz {\bf entonces:}
+  \hfill\break
+  18.\hspace{1cm} {\bf Regresa} max // fin 
+  \hfill\break
+  19.\hspace{0.5cm} {\bf Sino}
+  \hfill\break
+  20. \hspace{1cm}{\bf send}$(<${\it termine,} max$>)$ a PADRE
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  El algoritmo comienza con la raíz indicando su profundidad en cero e
+  indicandole a todos sus vecinos que su profundidad es uno. En caso de que
+  la raíz no tenga vecinos, la profunidad del árbol es cero.
+
+  Cuando cualquier vertice recibe un unico entero, el proceso inicializa
+  su variable profundidad al entero recibido. Si es hoja, entonces ya termino
+  y le notifica al padre que termino y su altura, si no le indica cual es
+  su profundidad a todos en  HIJOS.
+
+  Al recibir $<termine, n>$, el proceso determina si la $n$ recibida es mayor
+  a su variable local $max$ si sí ocurre entonces fija $max = n$.
+  Si el número de $<termine, n>$
+  recibidos es igual al número de HIJOS, ya terminó. Si se trata de la raíz
+  este regresa su variable max, si no le comunica a su padre que termino y
+  la profunidad maxima obtenida de sus subarboles.
+
+  El algoritmo recorre el arbol de arriba a abajo para poner las profundidades,
+  lo que toma en tiempo $profundidad(T)$ y luego lo recorre de abajo a arriba
+  para obtener la profundidad máxima lo que de nuevo toma $profundidad(T)$.
+  Entonces este algoritmo auxiliar toma $2\cdot profundidad(T)$ en tiempo.
+
+  Cada arista envia un mensaje para poner las profundidades y otro para
+  obtener la profundidad maxima, entonces el algoritmo envía $2|E|$ mensajes.
+  
+  \hfill\break
+  Así, ahora, cada proceso conoce su profundidad y podemos aplicar la idea
+  mencionada al inicio.
+  \newpage
+  % Algoritmo 9
+  \rule{1\textwidth}{0.2mm}
+  {\bf Algoritmo 9} getCapas(soyRaiz):
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  1. profArbol = profundidadT(soyRaiz), totalcapa = 0, vecinos = 0
+  \hfill\break
+  2. PADRE, HIJOS, profundidad, soyRaiz = soyRaiz, cadena = $""$
+  
+  \hfill\break
+  \hspace*{.2cm} {\bf Inicialmente hacer}
+  \hfill\break
+  3. {\bf Si} soyRaiz {\bf entonces}
+  \hfill\break
+  4. \hspace{0.5cm} cadena = "1"
+  \hfill\break
+  5. \hspace{0.5cm} {\bf Si} |HIJOS| == 0 {\bf entonces:}
+  \hfill\break
+  6. \hspace{1cm} {\bf regresa} "1"
+  \hfill\break
+  7. \hspace{0.5cm} {\bf Sino}
+  \hfill\break
+  8. \hspace{1cm} $cadena = cadena ++","++ |HIJOS|$
+  \hfill\break
+  9. \hspace{1cm} {\bf send}($<$ {\it :dame, } $1>$ // Le pide a todos los
+  vertices de la capa uno envien |HIJOS|
+  \hfill\break
+  
+  \hspace{0.2cm} {\bf Al recibir $<${\it :dame, capa}$>$  de } PADRE:
+  \hfill\break
+  10. {\bf Si} $profundidad ==  capa$ {\bf entonces:}
+  \hfill\break
+  11. \hspace{.5cm} {\bf send}$(< |HIJOS|, capa>)$ a PADRE
+  \hfill\break
+  12. {\bf Sino} 
+  \hfill\break
+  13. \hspace{0.5cm} {\bf send}($<$ {\it :dame, capa} $>$) a todos en HIJOS
+  \hfill\break
+
+  \hspace{0.2cm} {\bf Al recibir $< hijos, capa >$ de algún puerto}
+  en HIJOS:
+  \hfill\break
+  14. vecinos += 1, totalcapa += hijos
+  \hfill\break
+  15. {\bf Si} $vecinos ==  |HIJOS|$ {\bf entonces:}
+  \hfill\break
+  16.\hspace{0.5cm}{\bf Si} soyRaiz {\bf entonces:}
+  \hfill\break
+  17. \hspace{1cm}$cadena = cadena ++ ", "++ hijos$
+  \hfill\break
+  18. \hspace{1cm}{\bf Si} $capa == profArbol-1$ {\bf entonces:}
+  \hfill\break
+  19.\hspace{1.5cm} {\bf Regresa} cadena // fin algoritmo
+  \hfill\break
+  20.\hspace{1cm} {\bf Si no}
+  \hfill\break
+  21.\hspace{1.5cm}{\bf send}$(< :dame, capa+1>)$ a HIJOS
+  \hfill\break
+  22.\hspace{0.5cm} {\bf Si no}
+  \hfill\break  
+  23. \hspace{1cm}{\bf send}$(< totalcapa, capa>)$ a PADRE
+  \hfill\break
+  \rule{1\textwidth}{0.2mm}
+  \hfill\break
+  % fin algoritmo
+  \hfill\break
+
+  Es facíl ver que el algoritmo va de arriba a abajo, puede que no sea el
+  algoritmo más optimo, pero no supe manejar mi tiempo y no hay chance
+  de pensar en uno mejor. Al final el algoritmo regresa la cadena $n_0, n_1,
+  ..., n_{profundidad(T)}$ donde cada $n_i$ representa el número de vertices por
+  capa.
+
+    El algoritmo recorre desde la raíz hasta cada una de las capas y de regreso,
+  con excepción de la de mayor profundida, de forma que en tiempo toma
+  $profundidad(t)*profundidad(T)$.
+
+  Por otro lado el algoritmo manda mensajes hasta la capa que le importa $n=
+  profundidad(T)-1$ veces, y el mismo numero de veces para arriba, cuando
+  reportan el número de HIJOS para los procesos en una capa menor a la
+  solicitada.
 \end{enumerate}
 \end{document}
